@@ -1,0 +1,15 @@
+// Load CSV from GitHub
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/ganeshk-4925/covid-neo4j-data/main/cleaned_covid_data_final.csv' AS row
+WITH row
+MERGE (c:Country {name: row.`Country/Region`})
+MERGE (p:Province {name: row.`Province/State`, lat: toFloat(row.Lat), long: toFloat(row.Long)})
+MERGE (c)-[:HAS_PROVINCE]->(p)
+MERGE (d:Day {date: row.Date})
+MERGE (p)-[r:REPORTED_ON]->(d)
+SET r.confirmed = toInteger(row.Confirmed);
+
+// Clean duplicates
+MATCH (p:Province)-[r:REPORTED_ON]->(d:Day)
+WITH p, d, collect(r) AS rels
+WHERE size(rels) > 1
+FOREACH (r IN tail(rels) | DELETE r);

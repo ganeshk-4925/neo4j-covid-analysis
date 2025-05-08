@@ -1,7 +1,7 @@
 ## 🎥 Project Demo Video
 
 Watch the 5-minute walkthrough here:  
-[![Watch the video](https://youtu.be/bJDbjc2Rl20)
+[![Watch the video](https://img.youtube.com/vi/bJDbjc2Rl20/0.jpg)](https://youtu.be/bJDbjc2Rl20)
 
 This video demonstrates:
 
